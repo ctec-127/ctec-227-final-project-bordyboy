@@ -53,7 +53,6 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
         if (count($errorBucket) == 0 ) {
             $hash = hash('sha512', $password);
             $sql = "SELECT * FROM `user` WHERE email = '$email' AND password = '$hash'";
-            // echo $sql;
             $result = $db->query($sql);
             
             if (!$result) {
@@ -61,21 +60,28 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
                 I am sorry, but I could not save that record for you. ' .  
                 $db->error . '.</div>';
             } elseif ($result->num_rows > 0) {
-                // print_r($result);
                 while ($row = $result->fetch_assoc()) {                
                     $_SESSION['uid'] = $row['id'];
                     $_SESSION['username'] = $row['username'];
                 }
-                echo $_SESSION['uid'];
                 $sqlSubscribe = "SELECT * FROM `subscribe` WHERE `user_id` = " . $_SESSION['uid'];
-                // echo $sqlSubscribe;
                 $resultSubscribe = $db->query($sqlSubscribe);
                 $_SESSION['subscribeList'] = [];
                 while ($rowSubscribe = $resultSubscribe->fetch_assoc()) {                
                     array_push($_SESSION['subscribeList'], $rowSubscribe['forum_name']);
-                    // echo $rowSubscribe['forum_name'];
                 }
+                asort($_SESSION['subscribeList']);
+                $sqlForumList = "SELECT * FROM `forum`";
+                $resultForumList = $db->query($sqlForumList);
+                $_SESSION['forumList'] = [];
+                while ($rowForumList = $resultForumList->fetch_assoc()) {                
+                    array_push($_SESSION['forumList'], $rowForumList['forum_name']);
+                }
+                asort($_SESSION['forumList']);
+                
                 echo "loggedIn";
+            } elseif ($result->num_rows <= 0) {
+                echo "wrongLogIn";
             }
         } else {
             display_error_bucket($errorBucket);
