@@ -43,8 +43,11 @@ if(isset($_SESSION['username'])){
         <!-- </ul> -->
     </nav>
     <div class="container">
+        
         <div class="row no-marginLR">
-             <div class="col-10 offset-1">
+            <div class="col-10 offset-1">
+                <br>
+                <h2>Welcome back, <?php echo $_SESSION['username']; ?> !</h2>
                  <div id="errorBucket">
          
                  </div>
@@ -68,14 +71,14 @@ if(isset($_SESSION['username'])){
                         <button type="submit" id="postSubmit" class="btn button" >Post</button>
                     </form>
                 </div>
-            <div id="createForum" style="display: none;">
+                <div class="card" id="createForum" style="display: none;">
                     <form id="createForumForm" method="POST" >
                         <div class="form-group">
                             <label for="name">New Forum Name</label>
                             <input type="text" class="form-control" id="createForumName" name="name">
                         </div>
                                                 
-                        <button type="submit" id="postSubmit" class="btn button" >Post</button>
+                        <button type="submit" id="postSubmit" class="btn button" >Create</button>
                     </form>
                 </div>
             <!-- <div class="card">
@@ -107,8 +110,6 @@ if(isset($_SESSION['username'])){
             
             </div>
             </div> -->
-                <br>
-                <h2>Welcome back, <?php echo $_SESSION['username']; ?> !</h2>
                 <?php 
 
                 
@@ -122,7 +123,7 @@ if(isset($_SESSION['username'])){
                     display_forum_post($result,$db);
                 } else {
                     if (count($_SESSION['subscribeList']) == 0) {
-                        $errorBucket=['<p>It seems you have no subscribed forums. Please visit the ALL Forums page to subscribe to forums</p>'];
+                        $errorBucket=['<p>It seems you have no subscribed forums. Please visit the <a href="forum.php">All Forums</a> page to subscribe to forums</p>'];
                         display_error_bucket($errorBucket);
                     }
                     echo "<br>";               

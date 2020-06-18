@@ -16,7 +16,7 @@ function display_forum_post($result,$db){
     while($row = $result->fetch_assoc()){
         echo "
         
-        <div class='card'>
+        <div class='card border-bottom-0'>
                 <div class='card-header'>
                 {$row['forum_name']}
                 <i class='text-muted'> - {$row['username']}</i> <br><hr> {$row['post_title']}
@@ -37,10 +37,10 @@ function display_forum_post($result,$db){
                     </blockquote>
                 </div>
             <div class='accordion' id='commentsCollapse{$row['id']}'>
-            <div class='card'>
+            <div class='border rounded-bottom'>
                 <div class='card-header' id='postParent{$row['id']}'>
                 <h2 class='mb-0'>
-                    <button class='btn btn-link btn-block text-left' type='button' data-toggle='collapse' data-target='#collapse{$row['id']}' aria-expanded='true' aria-controls='collapse{$row['id']}'>
+                    <button class='pl-0 btn btn-link btn-block text-left' type='button' data-toggle='collapse' data-target='#collapse{$row['id']}' aria-expanded='true' aria-controls='collapse{$row['id']}'>
                     Comments
                     </button>
                 </h2>
@@ -48,14 +48,14 @@ function display_forum_post($result,$db){
 
                 <div id='collapse{$row['id']}' class='collapse' aria-labelledby='postParent{$row['id']}' data-parent='#commentsCollapse{$row['id']}'>
                 <div class='card-body'>
-                    <ul>
+                    
                         ";
                     
                         $sql2 = "SELECT `comment_text`, `username` FROM `comment` WHERE `post_id` = " . $row['id'];
                         // echo $sql2;
                         $result2 = $db->query($sql2);
                         while ($row2 = $result2->fetch_assoc()){
-                            echo "<h6>{$row2['username']}</h6><h6'> {$row2['comment_text']}</h6><hr id='comment{$row['id']}'>";
+                            echo "<h5 class='font-italic'>{$row2['username']}</h5><h6'> {$row2['comment_text']}</h6><hr id='comment{$row['id']}'>";
                         }
                         echo "
                         
@@ -67,7 +67,7 @@ function display_forum_post($result,$db){
                             </div>                    
                             <button type='submit' class='btn btn-primary ml-3'>Post</button>
                         </form>
-                    </ul>
+                    
                 </div>
                 </div>
             </div>
@@ -112,7 +112,7 @@ function create_all_forums_list($db) {
     // $resultForumList = $db->query($sqlForumList);
     // // echo "<ul>";
     foreach ($_SESSION['forumList'] as $rowForumList){
-        echo "<div class='bg-white forumCell'><a class='text-dark' href='forum.php?forum=" . $rowForumList . "'>" . $rowForumList . "</a></div><br>";
+        echo "<div class=''><a class='text-dark p-2 rounded bg-white d-flex align-items-center' href='forum.php?forum=" . $rowForumList . "'><span>" . $rowForumList . "</span></a></div><br>";
     }
 }
 

@@ -116,7 +116,7 @@ $('#createForumForm').on('submit',function(e){
             if (response == 'works'){
                 // console.log(response);
                 // $('#createPost').toggle();
-                window.location.replace('forum.php');
+                window.location.replace('forum.php?forum='+name);
                 // location.reload(true);
             } else {
             //     console.log(response);

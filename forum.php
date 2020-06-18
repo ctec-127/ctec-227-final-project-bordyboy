@@ -59,7 +59,7 @@ if(isset($_SESSION['username'])){
         echo "
         <div class='col-4 offset-4'>
         <br>
-        <h2>ALL Forums</h2><br>";
+        <h2>All Forums</h2><br>";
         create_all_forums_list($db);
         
     }
